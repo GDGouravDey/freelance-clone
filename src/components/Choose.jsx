@@ -39,7 +39,7 @@ function Choose() {
                 </div>
 
 
-                <div className="flex px-16 gap-20 py-16">
+                <div className="flex px-16 gap-24 py-16">
                     {path.map((item, index) => (
                         <ImageCard
                             key={index}
@@ -78,7 +78,7 @@ const ImageCard = ({ item }) => {
                 </p>
 
                 <div className="mt-32 sm:mt-48 lg:mt-64">
-                    <div className="translate-y-10 transform opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100">
+                    <div className="translate-y-20 transform opacity-0 transition-all group-hover:translate-y-5 group-hover:opacity-100">
                         <p className="text-sm text-white md:text-2xl">{item.desc}</p>
                     </div>
                 </div>

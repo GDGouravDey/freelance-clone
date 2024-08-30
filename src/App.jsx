@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Choose from "./components/Choose";
 import Hero from "./components/Hero";
-import Auth from "./components/Auth";
+import LoginPage from "./components/LoginPage";
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Hero />} />
         <Route path="/choose" element={<Choose />} />
-        <Route path="/sign-in" element={<Auth />} />
+        <Route path="/sign-in" element={<LoginPage />} />
       </Routes>
     </Router>
   );
