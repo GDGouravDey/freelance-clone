@@ -124,7 +124,7 @@ const LoginPage = () => {
                             <input type="email" placeholder="Email" id="email" className={`input`} onChange={(e) => setEmail(e.target.value)} />
                             <input type="password" placeholder="Password" id="password" className={`input`} onChange={(e) => setPassword(e.target.value)} />
                             {isSignUp && <input type="number" placeholder="Phone Number" id="number" className={`input`} onChange={(e) => setPhoneNum(e.target.value)} />}
-                            {isSignUp && <button className={`button`} type="submit" id="signup" onClick={handleSignUp}>Sign Up</button>}
+                            {isSignUp && <button className={`button ${role === 'freelancer' ? 'bg-[#c52cef]' : 'bg-[#512da8]'}`} type="submit" id="signup" onClick={handleSignUp}>Sign Up</button>}
                             {!isSignUp && (
                                 <>
                                     <a href="#" className={`text-xs text-gray-600 block mb-2 forgotPassword cursor-pointer`}>Forgot Your Password?</a>
