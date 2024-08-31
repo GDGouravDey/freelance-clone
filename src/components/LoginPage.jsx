@@ -1,7 +1,8 @@
 import React, { useRef, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import google_auth from '../assets/google_auth.svg';
-import { useNavigate } from 'react-router-dom';
+import google_auth2 from '../assets/google_auth2.svg';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { toast, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -14,6 +15,13 @@ const LoginPage = () => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [phone_num, setPhoneNum] = useState();
+
+    const useQuery = () => {
+        return new URLSearchParams(useLocation().search);
+    };
+    
+    const query = useQuery();
+    const role = query.get('role');
 
     const signinSuccess = () => {
         toast.success('Successfully Signed In!', {
@@ -109,7 +117,7 @@ const LoginPage = () => {
                         <form className={`p-6 form`}>
                             <h1 className={`text-3xl mb-6 heading`} style={{ fontWeight: 700 }}>{isSignUp ? 'Create Account' : 'Sign In'}</h1>
                             <div className={`mb-2 socialIcons`}>
-                                <img src={google_auth} alt="Google" className="relative h-[94%] z-[5]" />
+                                <img src={role === 'freelancer' ? google_auth2 : google_auth} alt="Google" className="relative h-[94%] z-[5]" />
                             </div>
                             <span className={`span mb-1`}>{isSignUp ? 'or use your email for registration' : 'or use your email password'}</span>
                             {isSignUp && <input type="text" placeholder="Name" id="username" className={`input`} onChange={(e) => setName(e.target.value)} />}
@@ -120,13 +128,13 @@ const LoginPage = () => {
                             {!isSignUp && (
                                 <>
                                     <a href="#" className={`text-xs text-gray-600 block mb-2 forgotPassword cursor-pointer`}>Forgot Your Password?</a>
-                                    <button className={`btn-primary signInButton`} type="submit" id="signin" onClick={handleSignIn}>Sign In</button>
+                                    <button className={`btn-primary signInButton ${role === 'freelancer' ? 'bg-[#c52cef]' : 'bg-[#512da8]'}`} type="submit" id="signin" onClick={handleSignIn}>Sign In</button>
                                 </>
                             )}
                         </form>
                     </div>
                     <div className={`toggle-container w-1/2 h-full overflow-hidden bg-gradient-to-l from-primary to-transparent toggleContainer`}>
-                        <div className={`toggle h-full bg-gradient-to-r from-primary to-transparent text-white toggle`}>
+                        <div className={`${role === 'freelancer'? 'toggle2' : 'toggle'} h-full bg-gradient-to-r from-primary to-transparent text-white toggle`}>
                             <div className={`toggle-panel toggle-right p-6 text-center togglePanel`}>
                                 <h1 className={`text-3xl font-semibold mb-4 toggleHeading`} style={{ fontWeight: 700 }}>Hello, Friend!</h1>
                                 <p className={`text-sm mb-4 toggleText`}>Register with your personal details to use all site features</p>

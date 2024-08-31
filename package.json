@@ -11,11 +11,14 @@
   },
   "dependencies": {
     "framer-motion": "^11.3.31",
+    "freelance-clone": "file:",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-helmet": "^6.1.0",
+    "react-just-parallax": "^3.1.16",
     "react-router-dom": "^6.26.1",
-    "react-toastify": "^10.0.5"
+    "react-toastify": "^10.0.5",
+    "scroll-lock": "^2.1.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
