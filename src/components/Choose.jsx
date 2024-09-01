@@ -65,7 +65,7 @@ const ImageCard = ({ item }) => {
             <img
                 alt={item.name}
                 src={src}
-                className="absolute inset-0 h-[110%] w-full object-cover opacity-70 transition-opacity group-hover:opacity-50"
+                className="absolute inset-0 h-full w-full object-cover opacity-70 transition-opacity group-hover:opacity-50"
             />
 
             <div className="relative p-4 sm:p-6 lg:p-8">
@@ -78,7 +78,7 @@ const ImageCard = ({ item }) => {
                 </p>
 
                 <div className="mt-32 sm:mt-48 lg:mt-64">
-                    <div className="translate-y-20 transform opacity-0 transition-all group-hover:translate-y-5 group-hover:opacity-100">
+                    <div className="translate-y-10 transform opacity-0 transition-all group-hover:-translate-y-3 group-hover:opacity-100">
                         <p className="text-sm text-white md:text-2xl">{item.desc}</p>
                     </div>
                 </div>
