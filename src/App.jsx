@@ -1,19 +1,25 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Choose from "./components/Choose";
+import ButtonGradient from "./assets/svg/ButtonGradient";
+import Benefits from "./components/Benefits";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
 import Hero from "./components/Hero";
-import LoginPage from "./components/LoginPage";
+import Roadmap from "./components/Roadmap";
 
-function App() {
+
+const App = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Hero />} />
-        <Route path="/choose" element={<Choose />} />
-        <Route path="/sign-in" element={<LoginPage />} />
-      </Routes>
-    </Router>
+    <>
+      <div className="pt-[4.75rem] lg:pt-[5.25rem] overflow-hidden">
+        <Header />
+        <Hero />
+        <Benefits />
+        <Roadmap />
+        <Footer />
+      </div>
+
+      <ButtonGradient />
+    </>
   );
-}
+};
 
 export default App;

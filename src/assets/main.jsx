@@ -5,7 +5,7 @@ import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 import App from "./App.jsx";
 import Choose from "./components/Choose.jsx";
 import LoginPage from "./components/LoginPage.jsx";
-import "./index.css";
+import './index.css'
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

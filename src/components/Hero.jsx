@@ -1,39 +1,96 @@
-import ButtonGradient from "../assets/svg/ButtonGradient";
-import Benefits from "./homepage/Benefits";
-import Collaboration from "./homepage/Collaboration";
-import Footer from "./homepage/Footer";
-import Header from "./homepage/Header";
-import Hero2 from "./homepage/Hero";
-import Pricing from "./homepage/Pricing";
-import Roadmap from "./homepage/Roadmap";
-import Services from "./homepage/Services";
-import { useNavigate } from "react-router-dom";
+import { curve, heroBackground, robot } from "../assets";
+import Button from "./Button";
+import Section from "./Section";
+import { BackgroundCircles, BottomLine, Gradient } from "./design/Hero";
+import { heroIcons } from "../constants";
+import { ScrollParallax } from "react-just-parallax";
+import { useRef } from "react";
+import Generating from "./Generating";
+import Notification from "./Notification";
 
 const Hero = () => {
-  const navigate = useNavigate();
+  const parallaxRef = useRef(null);
 
-  const handleClick = () => {
-    navigate('/choose');
-  };
   return (
-    <>
-      {/* <div className="pt-[4.75rem] lg:pt-[5.25rem] overflow-hidden">
-        <Header />
-        <Hero />
-        <Benefits />
-        <Collaboration />
-        <Services />
-        <Pricing />
-        <Roadmap />
-        <Footer />
+    <Section
+      className="pt-[12rem] -mt-[5.25rem]"
+      crosses
+      crossesOffset="lg:translate-y-[5.25rem]"
+      customPaddings
+      id="hero"
+    >
+      <div className="container relative" ref={parallaxRef}>
+        <div className="relative z-1 max-w-[62rem] mx-auto text-center mb-[3.875rem] md:mb-20 lg:mb-[6.25rem]">
+          <h1 className="h1 mb-6">
+          Unlock Freelance Potential Today with {` `}
+            <span className="inline-block relative">
+              WORKIFY{" "}
+              <img
+                src={curve}
+                className="absolute top-full left-0 w-full xl:-mt-2"
+                width={624}
+                height={28}
+                alt="Curve"
+              />
+            </span>
+          </h1>
+          <p className="body-1 max-w-3xl mx-auto mb-6 text-n-2 lg:mb-8">
+          Unleash Your Freelance Potential. Elevate Your Career with Workify, the Premier Freelance Platform.
+          </p>
+          <Button href="/choose" white>
+            Get started
+          </Button>
+        </div>
+        <div className="relative max-w-[23rem] mx-auto md:max-w-5xl xl:mb-24">
+          <div className="relative z-1 p-0.5 rounded-2xl bg-conic-gradient">
+            <div className="relative bg-n-8 rounded-[1rem]">
+              <div className="h-[1.4rem] bg-n-10 rounded-t-[0.9rem]" />
+
+              <div className="aspect-[33/40] rounded-b-[0.9rem] overflow-hidden md:aspect-[688/490] lg:aspect-[1024/490]">
+                <img
+                  src="https://wordpress.peppercontent.io/wp-content/uploads/2022/02/7-types-of-freelancers_-which-one-are-you_.png"
+                  className="w-full scale-[1.7] translate-y-[8%] md:scale-[1] md:-translate-y-[10%] lg:-translate-y-[23%]"
+                  width={1024}
+                  height={490}
+                  alt="AI"
+                />
+
+                <Generating className="absolute left-4 right-4 bottom-5 md:left-1/2 md:right-auto md:bottom-8 md:w-[31rem] md:-translate-x-1/2" />
+
+                <ScrollParallax isAbsolutelyPositioned>
+                  <ul className="hidden absolute -left-[5.5rem] bottom-[7.5rem] px-1 py-1 bg-n-9/40 backdrop-blur border border-n-1/10 rounded-2xl xl:flex">
+                    {heroIcons.map((icon, index) => (
+                      <li className="p-5" key={index}>
+                        <img src={icon} width={24} height={25} alt={icon} />
+                      </li>
+                    ))}
+                  </ul>
+                </ScrollParallax>
+
+                
+              </div>
+            </div>
+
+            <Gradient />
+          </div>
+          <div className="absolute -top-[54%] left-1/2 w-[234%] -translate-x-1/2 md:-top-[46%] md:w-[138%] lg:-top-[104%]">
+            <img
+              src={heroBackground}
+              className="w-full"
+              width={1440}
+              height={1800}
+              alt="hero"
+            />
+          </div>
+
+          <BackgroundCircles />
+        </div>
+
+        
       </div>
 
-      <ButtonGradient /> */}
-      <p>Work in Progress</p>
-      <button className="bg-green-500 rounded-md p-2 m-2" onClick={handleClick}>
-      Get Started
-    </button>
-    </>
+      <BottomLine />
+    </Section>
   );
 };
 

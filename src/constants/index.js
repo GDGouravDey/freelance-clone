@@ -1,39 +1,21 @@
 import {
-  benefitIcon1,
-  benefitIcon2,
-  benefitIcon3,
-  benefitIcon4,
-  benefitImage2,
-  chromecast,
-  disc02,
-  discord,
   discordBlack,
   facebook,
-  figma,
   file02,
-  framer,
+
   homeSmile,
   instagram,
   notification2,
   notification3,
   notification4,
-  notion,
-  photoshop,
+
   plusSquare,
-  protopie,
-  raindrop,
-  recording01,
-  recording03,
-  roadmap1,
-  roadmap2,
-  roadmap3,
-  roadmap4,
+
   searchMd,
-  slack,
-  sliders04,
+
   telegram,
   twitter,
-  yourlogo,
+
 } from "../assets";
 
 export const navigation = [
@@ -44,27 +26,17 @@ export const navigation = [
   },
   {
     id: "1",
-    title: "Pricing",
-    url: "#pricing",
-  },
-  {
-    id: "2",
-    title: "How to use",
-    url: "#how-to-use",
-  },
-  {
-    id: "3",
-    title: "Roadmap",
+    title: "Aim",
     url: "#roadmap",
   },
   {
-    id: "4",
+    id: "2",
     title: "New account",
     url: "#signup",
     onlyMobile: true,
   },
   {
-    id: "5",
+    id: "3",
     title: "Sign in",
     url: "#login",
     onlyMobile: true,
@@ -75,222 +47,97 @@ export const heroIcons = [homeSmile, file02, searchMd, plusSquare];
 
 export const notificationImages = [notification4, notification3, notification2];
 
-export const companyLogos = [yourlogo, yourlogo, yourlogo, yourlogo, yourlogo];
-
-export const brainwaveServices = [
-  "Photo generating",
-  "Photo enhance",
-  "Seamless Integration",
-];
-
-export const brainwaveServicesIcons = [
-  recording03,
-  recording01,
-  disc02,
-  chromecast,
-  sliders04,
-];
-
 export const roadmap = [
   {
     id: "0",
-    title: "Voice recognition",
-    text: "Enable the chatbot to understand and respond to voice commands, making it easier for users to interact with the app hands-free.",
-    date: "May 2023",
+    title: "Project Recommendation",
+    text: "Unlock top-tier results with our advanced recommendation system! We analyze freelancer profiles, skills, and experience to connect you with the perfect match for your project. Say goodbye to mismatches and hello to seamless collaboration with experts who excel in their field.",
+    date: "September 2024",
     status: "done",
-    imageUrl: roadmap1,
+    imageUrl: "../src/assets/roadmap/temp1.jpeg",
     colorful: true,
   },
   {
     id: "1",
-    title: "Gamification",
-    text: "Add game-like elements, such as badges or leaderboards, to incentivize users to engage with the chatbot more frequently.",
-    date: "May 2023",
+    title: "Precision Freelancer Recommendations",
+    text: "Find the ideal freelancer for your project with ease! Our smart recommendations match you with top talent whose skills perfectly align with your needs. Get the right expert for every task effortlessly.",
+    date: "September 2024",
     status: "progress",
-    imageUrl: roadmap2,
+    imageUrl: "../src/assets/roadmap/temp2.jpeg",
+    colorful: true,
   },
   {
     id: "2",
-    title: "Chatbot customization",
-    text: "Allow users to customize the chatbot's appearance and behavior, making it more engaging and fun to interact with.",
-    date: "May 2023",
+    title: "Analysis of Resume and Key Skills",
+    text: "Leverage advanced analytics to evaluate resumes and highlight key skills, helping freelancers showcase their strengths effectively. Visualize data to provide insights into skill proficiency and experience, making it easier for clients to match with the right talent",
+    date: "September 2024",
     status: "done",
-    imageUrl: roadmap3,
+    imageUrl: "../src/assets/roadmap/temp3.jpeg",
+    colorful: true,
   },
   {
     id: "3",
-    title: "Integration with APIs",
-    text: "Allow the chatbot to access external data sources, such as weather APIs or news APIs, to provide more relevant recommendations.",
-    date: "May 2023",
+    title: "User Employee Rating System",
+    text: "Enable clients to rate and review freelancers, providing transparent feedback and fostering trust. Ratings help highlight top performers and guide future hiring decisions, ensuring a reliable and high-quality workforce.",
     status: "progress",
-    imageUrl: roadmap4,
+    imageUrl: "../src/assets/roadmap/temp4.jpeg",
+    colorful: true,
   },
 ];
 
-export const collabText =
-  "With smart automation and top-notch security, it's the perfect solution for teams looking to work smarter.";
 
-export const collabContent = [
-  {
-    id: "0",
-    title: "Seamless Integration",
-    text: collabText,
-  },
-  {
-    id: "1",
-    title: "Smart Automation",
-  },
-  {
-    id: "2",
-    title: "Top-notch Security",
-  },
-];
-
-export const collabApps = [
-  {
-    id: "0",
-    title: "Figma",
-    icon: figma,
-    width: 26,
-    height: 36,
-  },
-  {
-    id: "1",
-    title: "Notion",
-    icon: notion,
-    width: 34,
-    height: 36,
-  },
-  {
-    id: "2",
-    title: "Discord",
-    icon: discord,
-    width: 36,
-    height: 28,
-  },
-  {
-    id: "3",
-    title: "Slack",
-    icon: slack,
-    width: 34,
-    height: 35,
-  },
-  {
-    id: "4",
-    title: "Photoshop",
-    icon: photoshop,
-    width: 34,
-    height: 34,
-  },
-  {
-    id: "5",
-    title: "Protopie",
-    icon: protopie,
-    width: 34,
-    height: 34,
-  },
-  {
-    id: "6",
-    title: "Framer",
-    icon: framer,
-    width: 26,
-    height: 34,
-  },
-  {
-    id: "7",
-    title: "Raindrop",
-    icon: raindrop,
-    width: 38,
-    height: 32,
-  },
-];
-
-export const pricing = [
-  {
-    id: "0",
-    title: "Basic",
-    description: "AI chatbot, personalized recommendations",
-    price: "0",
-    features: [
-      "An AI chatbot that can understand your queries",
-      "Personalized recommendations based on your preferences",
-      "Ability to explore the app and its features without any cost",
-    ],
-  },
-  {
-    id: "1",
-    title: "Premium",
-    description: "Advanced AI chatbot, priority support, analytics dashboard",
-    price: "9.99",
-    features: [
-      "An advanced AI chatbot that can understand complex queries",
-      "An analytics dashboard to track your conversations",
-      "Priority support to solve issues quickly",
-    ],
-  },
-  {
-    id: "2",
-    title: "Enterprise",
-    description: "Custom AI chatbot, advanced analytics, dedicated account",
-    price: null,
-    features: [
-      "An AI chatbot that can understand your queries",
-      "Personalized recommendations based on your preferences",
-      "Ability to explore the app and its features without any cost",
-    ],
-  },
-];
 
 export const benefits = [
   {
     id: "0",
-    title: "Ask anything",
-    text: "Lets users quickly find answers to their questions without having to search through multiple sources.",
+    title: "Find the Perfect Freelancer",
+    text: "Easily connect with skilled professionals for your projects. No matter the task, find the right talent without the hassle.",
     backgroundUrl: "./src/assets/benefits/card-1.svg",
-    iconUrl: benefitIcon1,
-    imageUrl: benefitImage2,
+    iconUrl: "https://img.icons8.com/?size=100&id=33470&format=png&color=000000",
+    imageUrl: "https://img.freepik.com/premium-photo/cartoon-man-sitting-laptop_867452-10815.jpg"
+
   },
   {
     id: "1",
-    title: "Improve everyday",
-    text: "The app uses natural language processing to understand user queries and provide accurate and relevant responses.",
+    title: "Boost Your Business",
+    text: "Leverage our platform to grow your business. Hire top talent, meet deadlines, and stay within budget.",
     backgroundUrl: "./src/assets/benefits/card-2.svg",
-    iconUrl: benefitIcon2,
-    imageUrl: benefitImage2,
+    iconUrl: "https://img.icons8.com/?size=100&id=6Z5qDFuq9doa&format=png&color=000000",
+    imageUrl: "https://img.freepik.com/premium-photo/cartoon-man-sitting-laptop_867452-10815.jpg",
     light: true,
   },
   {
     id: "2",
-    title: "Connect everywhere",
-    text: "Connect with the AI chatbot from anywhere, on any device, making it more accessible and convenient.",
+    title: "Work Seamlessly",
+    text: "Collaborate with freelancers from anywhere in the world. Our platform ensures smooth communication and project management.",
     backgroundUrl: "./src/assets/benefits/card-3.svg",
-    iconUrl: benefitIcon3,
-    imageUrl: benefitImage2,
+    iconUrl: "https://img.icons8.com/?size=100&id=CIZZhjJ4f5oP&format=png&color=000000",
+    imageUrl: "https://img.freepik.com/premium-photo/cartoon-man-sitting-laptop_867452-10815.jpg"
   },
   {
     id: "3",
-    title: "Fast responding",
-    text: "Lets users quickly find answers to their questions without having to search through multiple sources.",
+    title: "Quick Hiring Process",
+    text: "Post jobs and receive proposals within minutes. Our platform speeds up the hiring process so you can focus on what matters.",
     backgroundUrl: "./src/assets/benefits/card-4.svg",
-    iconUrl: benefitIcon4,
-    imageUrl: benefitImage2,
+    iconUrl: "https://img.icons8.com/?size=100&id=jmXM1muMjLGj&format=png&color=000000",
+    imageUrl: "https://img.freepik.com/premium-photo/cartoon-man-sitting-laptop_867452-10815.jpg",
     light: true,
   },
   {
     id: "4",
-    title: "Ask anything",
-    text: "Lets users quickly find answers to their questions without having to search through multiple sources.",
+    title: "Expert Freelancers",
+    text: "Hire from a pool of verified experts across various fields. Get the best results for your projects.",
     backgroundUrl: "./src/assets/benefits/card-5.svg",
-    iconUrl: benefitIcon1,
-    imageUrl: benefitImage2,
+    iconUrl: "https://img.icons8.com/?size=100&id=pIPl8tqh3igN&format=png&color=000000",
+    imageUrl: "https://img.freepik.com/premium-photo/cartoon-man-sitting-laptop_867452-10815.jpg"
   },
   {
     id: "5",
-    title: "Improve everyday",
-    text: "The app uses natural language processing to understand user queries and provide accurate and relevant responses.",
+    title: "Secure Payments",
+    text: "Our escrow system ensures that your payments are secure. Release funds only when you’re satisfied with the work.",
     backgroundUrl: "./src/assets/benefits/card-6.svg",
-    iconUrl: benefitIcon2,
-    imageUrl: benefitImage2,
+    iconUrl: "https://img.icons8.com/?size=100&id=x9U4HcNp4Tv2&format=png&color=000000",
+    imageUrl: "https://img.freepik.com/premium-photo/cartoon-man-sitting-laptop_867452-10815.jpg"
   },
 ];
 
