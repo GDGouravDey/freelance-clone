@@ -107,7 +107,7 @@ const LoginPage = () => {
     };
 
     return (
-            <div className="bg-black flex items-center justify-center min-h-screen">
+            <div className="bg-zinc-900 flex items-center justify-center min-h-screen">
                 <HelmetProvider>
                     <Helmet>
                         <link rel="preconnect" href="https://fonts.googleapis.com" />

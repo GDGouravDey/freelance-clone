@@ -25,7 +25,7 @@ const path = [
 function Choose() {
 
     return (
-        <div className="bg-black min-h-screen pt-6 sm:pt-4 lg:pt-4">
+        <div className="bg-zinc-900 min-h-screen pt-6 sm:pt-4 lg:pt-4">
             <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
                 <div className="mb-2 md:mb-2">
                     <h2 className="mb-4 mt-2 text-center text-2xl font-bold text-white md:mb-2 lg:text-3xl">
