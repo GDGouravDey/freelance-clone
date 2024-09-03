@@ -26,6 +26,7 @@ const applicationSchema = new Schema({
         type: String,
         enum: ['not started', 'completed'],
         default: 'not started'
+
     }
 })
 

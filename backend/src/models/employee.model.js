@@ -25,4 +25,4 @@ const employeeSchema = new Schema({
     }
 });
 
-export const Employee = User.discriminator('employee', employeeSchema);
+export const Employee = User.discriminator('freelancer', employeeSchema);

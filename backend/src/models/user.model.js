@@ -23,8 +23,8 @@ const userSchema = new Schema({
     },
     role: {
         type: String,
-        //we will do discriminator
-        enum: ['employer', 'employee'],
+        // we will do discriminator
+        enum: ['employer', 'freelancer'],
         required: true
     },
     refreshToken: {

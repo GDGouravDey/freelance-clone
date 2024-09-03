@@ -1,1 +1,1 @@
-export const DB_NAME = "freelancing"
+export const DB_NAME = "freelance"

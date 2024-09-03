@@ -36,50 +36,55 @@ const generateAccessTokenAndRefreshTokens = async (userId) => {
 }
 
 const registerUser = asyncHandler(async (req, res) => {
-    const role = req.query.role
-    const { username, email, password } = req.body
 
+    const { username, email, password, role } = req.body;
 
     // Check if the username or email already exists
-    const existedUser = await User.findOne({ $or: [{ username }, { email }] })
-
-    //console.log(`Found user: ${existedUser}`)
+    const existedUser = await User.findOne({ $or: [{ username }, { email }] });
 
     if (existedUser) {
-        return res.status(400).json({ message: "Username or Email already exists" })
+        return res.status(400).json({ message: "Username or Email already exists" });
     }
 
-    let user
-    if (role === 'employee') {
-        user = new Employee({ username, email, password, role })
+    let user;
+    if (role === 'freelancer') {
+        user = new Employee({ username, email, password, role });
     } else if (role === 'employer') {
-        user = new Employer({ username, email, password, role })
+        user = new Employer({ username, email, password, role });
     } else {
-        return res.status(400).json({ message: 'Choose your correct role from the dropdown', success: false })
+        return res.status(400).json({ message: 'Choose your correct role from the dropdown', success: false });
     }
 
-    await user.save()
+    await user.save();
 
     if (!user) {
-        return res.status(401).json({ message: 'User not created', success: false })
+        return res.status(401).json({ message: 'User not created', success: false });
     }
 
-    const createdUser = await User.findById(user._id).select('-password -refreshToken')
+    const createdUser = await User.findById(user._id).select('-password -refreshToken');
     if (!createdUser) {
-        return res.status(401).json({ message: 'User not created successfully', success: false })
+        return res.status(401).json({ message: 'User not created successfully', success: false });
     }
 
-    res.status(201).json(new ApiResponse(201, createdUser, 'User registered successfully'))
-})
+    const { accessToken, refreshToken } = await generateAccessTokenAndRefreshTokens(user._id)
+
+    res.status(201).json({
+        success: true,
+        message: 'User registered successfully',
+        user: createdUser,
+        accessToken,
+        refreshToken
+    });
+});
 
 const loginUser = asyncHandler(async (req, res) => {
-    const { email, password, username } = req.body
+    const { email, password } = req.body
 
     if (!email || !password) {
         return res.status(400).json({ message: 'Please provide email and password', success: false })
     }
 
-    const user = await User.findOne({ $or: [{ email }, { username }] })
+    const user = await User.findOne({ email })
 
     //console.log("login user",user)
 
@@ -101,7 +106,8 @@ const loginUser = asyncHandler(async (req, res) => {
 
     const options = {
         httpOnly: true,
-        secure: true
+        secure: false,
+        sameSite: 'None'
     }
 
     return res.status(200).cookie('refreshToken', refreshToken, options).cookie('accessToken', accessToken, options).json(
@@ -200,6 +206,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
 })
 
 const getCurrentUser = asyncHandler(async (req, res) => {
+    console.log("req.user", req.user)
     return res.status(200).json(
         new ApiResponse(200, req.user, "current user fetched successfully")
 
@@ -220,7 +227,8 @@ const updateUser = asyncHandler(async (req, res) => {
     // Define allowed fields based on user role
     let allowedUpdates = ['username', 'email', 'password']
 
-    if (user.role === 'employee') {
+
+    if (user.role === 'freelancer') {
         allowedUpdates = allowedUpdates.concat(['skills', 'jobPreferences', 'availabilityStatus'])
     } else if (user.role === 'employer') {
         allowedUpdates = allowedUpdates.concat(['companyName', 'industry', 'companySize'])
