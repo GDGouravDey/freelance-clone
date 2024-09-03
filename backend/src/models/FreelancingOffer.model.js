@@ -1,44 +1,42 @@
-import mongoose,{Schema} from "mongoose";
+import mongoose, { Schema } from 'mongoose';
 
 const freelancingOfferSchema = new Schema({
     title: {
         type: String,
         required: true,
         trim: true
-      },
-      description: {
+    },
+    description: {
         type: String,
         required: true
-      },
-      employer: {
+    },
+    employer: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'Employer',
         required: true
-      },
-      skills: [{
-        type: String
-      }],
-      budget: {
+    },
+    skills: [String],
+    salary: {
         type: Number,
         required: true
-      },
-      duration: {
+    },
+    duration: {
         type: String,
         required: true
-      },
-      status: {
+    },
+    status: {
         type: String,
-        enum: ['open', 'assigned', 'completed'],
+        enum: ['open','in progress' ,'completed'],
         default: 'open'
-      },
-      assignedTo: {
+    },
+    assignedTo: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-      },
-      applicants: [{
+        ref: 'Employee'
+    },
+    applicants: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Application'
-      }],
-},{timestamps:true})
+    }]
+}, { timestamps: true });
 
-export const FreelancingOffer = mongoose.model('FreelancingOffer',freelancingOfferSchema);
+export const FreelancingOffer = mongoose.model('FreelancingOffer', freelancingOfferSchema);

@@ -36,6 +36,7 @@ const generateAccessTokenAndRefreshTokens = async (userId) => {
 }
 
 const registerUser = asyncHandler(async (req, res) => {
+
     const { username, email, password, role } = req.body;
 
     // Check if the username or email already exists
@@ -225,6 +226,7 @@ const updateUser = asyncHandler(async (req, res) => {
 
     // Define allowed fields based on user role
     let allowedUpdates = ['username', 'email', 'password']
+
 
     if (user.role === 'freelancer') {
         allowedUpdates = allowedUpdates.concat(['skills', 'jobPreferences', 'availabilityStatus'])

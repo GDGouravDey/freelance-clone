@@ -12,11 +12,11 @@ const employerSchema = new Schema({
         type: String,
         enum: ['1-10', '11-50', '51-200', '201-500', '501+']
     },
-    postedJobs: [{
+    postedOffersCurrent: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Job'
+        ref: 'FreelancingOffer'
     }],
-    postedOffers: [{
+    postedOffersPast: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'FreelancingOffer'
     }],
