@@ -28,9 +28,5 @@ import resumeRouter from './routes/resume.routes.js';
 app.use('/api/v1/resume', resumeRouter);
 //http://localhost:8000/api/v1/resume/upload-resume
 
-import jobRouter from './routes/job.routes.js';
-
-app.use('/api/v1/job', jobRouter);
-//http://localhost:8000/api/v1/job/create-job
 
 export { app };
