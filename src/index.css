@@ -13,6 +13,22 @@
   color-scheme: dark;
 }
 
+#my-projects-page {
+  background-image: url('./assets/bg-1.jpg');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+}
+
+#profile-form-pag, #nav-bar {
+  margin: 0;
+  background-image: url('./assets/bg-1.jpg');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  background-attachment: fixed;
+}
+
 * {
   scroll-behavior: smooth
 }
