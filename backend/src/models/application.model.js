@@ -8,10 +8,10 @@ const applicationSchema = new Schema({
     applicant: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required: true
     },
     proposedRate: {
-        type: Number
+        type: Number,
+        required: true
     },
     status: {
         type: String,
@@ -24,9 +24,7 @@ const applicationSchema = new Schema({
     },
     taskStatus: { 
         type: String,
-        enum: ['not started', 'completed'],
-        default: 'not started'
-
+        enum: ['assigned', 'completed'],
     }
 })
 

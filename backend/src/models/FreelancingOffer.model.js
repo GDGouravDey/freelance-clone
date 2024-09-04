@@ -4,7 +4,8 @@ const freelancingOfferSchema = new Schema({
     title: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
+        unique: true
     },
     description: {
         type: String,
@@ -12,7 +13,7 @@ const freelancingOfferSchema = new Schema({
     },
     employer: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Employer',
+        ref: 'User',
         required: true
     },
     skills: [String],
@@ -21,17 +22,17 @@ const freelancingOfferSchema = new Schema({
         required: true
     },
     duration: {
-        type: String,
+        type: Number,
         required: true
     },
     status: {
         type: String,
-        enum: ['open','in progress' ,'completed'],
-        default: 'open'
+        enum: ['in progress' ,'completed'],
+        default: 'in progress'
     },
     assignedTo: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Employee'
+        ref: 'User'
     },
     applicants: [{
         type: mongoose.Schema.Types.ObjectId,
