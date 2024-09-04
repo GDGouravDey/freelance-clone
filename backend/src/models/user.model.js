@@ -21,10 +21,13 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
+    profilePicture: {
+        type: String,
+    },
     role: {
         type: String,
-        // we will do discriminator
-        enum: ['employer', 'freelancer'],
+        //we will do discriminator
+        enum: ['employer', 'employee'],
         required: true
     },
     refreshToken: {
@@ -57,7 +60,7 @@ userSchema.methods.generateAccessToken = function () {
                 email: this.email
             },
             process.env.ACCESS_TOKEN_SECRET,
-            { expiresIn: '2d' }
+            { expiresIn: process.env.ACCESS_TOKEN_EXPIRY }
         );
     } catch (error) {
         console.error("Error generating access token:", error);
@@ -73,7 +76,8 @@ userSchema.methods.generateRefreshToken = function () {
         },
         process.env.REFRESH_TOKEN_SECRET,
         {
-            expiresIn: '7d'
+            expiresIn: process.env.REFRESH_TOKEN_EXPIRY
+
         }
     )
 

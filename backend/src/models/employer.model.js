@@ -27,4 +27,16 @@ const employerSchema = new Schema({
     }
 })
 
+
+employerSchema.methods.assignJob = function (jobId) {
+    this.postedOffersCurrent.push(jobId);
+    return this.save();
+};
+
+employerSchema.methods.completeJob = function (jobId) {
+    this.postedOffersCurrent.push(jobId);
+    this.postedOffersPast.pull(jobId);  
+    return this.save()
+}
+
 export const Employer = User.discriminator('employer', employerSchema)
