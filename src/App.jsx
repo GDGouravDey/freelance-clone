@@ -9,7 +9,7 @@ import Roadmap from "./components/Roadmap";
 const App = () => {
   return (
     <>
-      <div className="pt-[4.75rem] lg:pt-[5.25rem] overflow-hidden">
+      <div className="pt-[4.75rem] lg:pt-[3.9rem] overflow-hidden">
         <Header />
         <Hero />
         <Benefits />

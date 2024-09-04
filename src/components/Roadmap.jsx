@@ -3,7 +3,7 @@ import Heading from "./Heading";
 import Section from "./Section";
 import { roadmap } from "../constants";
 import { grid } from "../assets";
-import { Gradient } from "./design/Roadmap";
+import { Gradient, Gradient2 } from "./design/Roadmap";
 
 const Roadmap = () => (
   <Section className="overflow-hidden" id="roadmap">
@@ -18,7 +18,7 @@ const Roadmap = () => (
             }`}
             key={item.id}
           >
-            <div className="relative p-8 bg-n-8 rounded-[2.4375rem] overflow-hidden xl:p-15">
+            <div className="relative p-8 bg-n-8 rounded-[2.4375rem] overflow-hidden xl:p-10">
               <div className="absolute top-0 left-0 max-w-full">
                 <img
                   className="w-full"
@@ -46,6 +46,7 @@ const Roadmap = () => (
         ))}
 
         <Gradient />
+        <Gradient2 />
       </div>
     </div>
   </Section>

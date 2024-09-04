@@ -13,6 +13,13 @@
   color-scheme: dark;
 }
 
+img {
+  -webkit-user-drag: none; /* Chrome, Safari, and Opera */
+  -khtml-user-drag: none; /* Konqueror */
+  -moz-user-drag: none; /* Firefox */
+  -ms-user-drag: none; /* Internet Explorer/Edge */
+}
+
 * {
   scroll-behavior: smooth
 }
