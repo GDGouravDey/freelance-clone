@@ -4,6 +4,8 @@ import { Employer } from '../models/employer.model.js';
 import { asyncHandler } from '../utils/asyncHandeler.js';
 import { ApiResponse } from '../utils/ApiResponse.js';
 import jwt from 'jsonwebtoken';
+import getDataUri from '../utils/datauri.js';
+import cloudinary from '../utils/cloudinary.js';
 
 
 const generateAccessTokenAndRefreshTokens = async (userId) => {
@@ -36,55 +38,83 @@ const generateAccessTokenAndRefreshTokens = async (userId) => {
 }
 
 const registerUser = asyncHandler(async (req, res) => {
+    const role = req.query.role
+    const { username, email, password } = req.body
+    const filePath = req?.file
+    //console.log("filePath", filePath)
 
-    const { username, email, password, role } = req.body;
+    if(!role && !username && !email && !password){
+        return res.status(400).json({
+            message: "Please provide all the fields",
+            success: false
+        })
+    }
+
+    if (!filePath) {
+        return res.status(400).json({
+            message: "Please provide a file",
+            success: false
+        })
+    }
+
+
 
     // Check if the username or email already exists
-    const existedUser = await User.findOne({ $or: [{ username }, { email }] });
+    const existedUser = await User.findOne({ $or: [{ username }, { email }] })
+
+    //console.log(`Found user: ${existedUser}`)
 
     if (existedUser) {
-        return res.status(400).json({ message: "Username or Email already exists" });
+        return res.status(400).json({ message: "Username or Email already exists" })
     }
 
-    let user;
-    if (role === 'freelancer') {
-        user = new Employee({ username, email, password, role });
+    let profilePicture
+
+    if (filePath) {
+        const fileUri = getDataUri(filePath);
+        profilePicture = await cloudinary.uploader.upload(fileUri);
+    }
+
+    if (!profilePicture?.secure_url) {
+        return res.status(500).json({
+            message: "Failed to upload profile picture",
+            success: false
+        })
+    }
+
+    let user
+    if (role === 'employee') {
+        user = new Employee({ username, email, password, role, profilePicture: profilePicture?.secure_url })
     } else if (role === 'employer') {
-        user = new Employer({ username, email, password, role });
+        user = new Employer({ username, email, password, role, profilePicture: profilePicture?.secure_url })
     } else {
-        return res.status(400).json({ message: 'Choose your correct role from the dropdown', success: false });
+        return res.status(400).json({ message: 'Choose your correct role from the dropdown', success: false })
     }
 
-    await user.save();
+
+
+    await user.save()
 
     if (!user) {
-        return res.status(401).json({ message: 'User not created', success: false });
+        return res.status(401).json({ message: 'User not created', success: false })
     }
 
-    const createdUser = await User.findById(user._id).select('-password -refreshToken');
+    const createdUser = await User.findById(user._id).select('-password -refreshToken')
     if (!createdUser) {
-        return res.status(401).json({ message: 'User not created successfully', success: false });
+        return res.status(401).json({ message: 'User not created successfully', success: false })
     }
 
-    const { accessToken, refreshToken } = await generateAccessTokenAndRefreshTokens(user._id)
-
-    res.status(201).json({
-        success: true,
-        message: 'User registered successfully',
-        user: createdUser,
-        accessToken,
-        refreshToken
-    });
-});
+    res.status(201).json(new ApiResponse(201, createdUser, 'User registered successfully'))
+})
 
 const loginUser = asyncHandler(async (req, res) => {
-    const { email, password } = req.body
+    const { email, password, username } = req.body
 
     if (!email || !password) {
         return res.status(400).json({ message: 'Please provide email and password', success: false })
     }
 
-    const user = await User.findOne({ email })
+    const user = await User.findOne({ $and: [{ email }, { username }] })
 
     //console.log("login user",user)
 
@@ -106,8 +136,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
     const options = {
         httpOnly: true,
-        secure: false,
-        sameSite: 'None'
+        secure: true
     }
 
     return res.status(200).cookie('refreshToken', refreshToken, options).cookie('accessToken', accessToken, options).json(
@@ -144,69 +173,55 @@ const logoutUser = asyncHandler(async (req, res) => {
 })
 
 const refreshAccessToken = asyncHandler(async (req, res) => {
-
-    const incomingRefreshToken = req.cookies.refreshToken || req.body.refreshToken
-
+    // Correctly extract the refresh token from the request body
+    const incomingRefreshToken = req.cookies.refreshToken || req.body.incomingRefreshToken;
 
     console.log("Cookies:", req.cookies);
-    console.log("Request Body:", req.body)
-    if (!incomingRefreshToken) {
-        return res.status(401).json({ message: "No refresh token provided", success: false })
+    console.log("Request Body:", req.body);
 
+    if (!incomingRefreshToken) {
+        return res.status(401).json({ message: "No refresh token provided", success: false });
     }
 
-    console.log("incomingRefreshToken", incomingRefreshToken)
-    console.log("process.env.REFRESH_TOKEN_SECRET", process.env.REFRESH_TOKEN_SECRET)
-    try {
+    console.log("incomingRefreshToken:", incomingRefreshToken);
+    console.log("process.env.REFRESH_TOKEN_SECRET:", process.env.REFRESH_TOKEN_SECRET);
 
+    try {
         const decodedToken = jwt.verify(
             incomingRefreshToken,
             process.env.REFRESH_TOKEN_SECRET
-        )
+        );
 
-        console.log("decodedToken", decodedToken)
+        console.log("decodedToken:", decodedToken);
 
-
-        const user = await User.findById(decodedToken?._id)
+        const user = await User.findById(decodedToken?._id);
 
         if (!user || user.refreshToken !== incomingRefreshToken) {
             return res.status(401).json({ message: "Invalid refresh token", success: false });
         }
 
-        //console.log("user", user)
-
-
-
         const options = {
             httpOnly: true,
-            secure: true
-        }
-        const { accessToken, newRefreshToken } = await generateAccessTokenAndRefreshTokens(user._id)
+            secure: true,
+        };
 
-        return res.status(200).cookie("accessToken", accessToken, options).cookie("refreshToken", newRefreshToken, options).json(
-            new ApiResponse(200),
-            { accessToken, refreshToken: newRefreshToken },
-            "Access token refreshed successfully"
+        const { accessToken, newRefreshToken } = await generateAccessTokenAndRefreshTokens(user._id);
 
-        )
+        return res.status(200)
+            .cookie("accessToken", accessToken, options)
+            .cookie("refreshToken", newRefreshToken, options)
+            .json(
+                new ApiResponse(200),
+                { accessToken, refreshToken: newRefreshToken },
+                "Access token refreshed successfully"
+            );
     } catch (error) {
-        return res.status(401).json({ message: error.message })
-
-
+        return res.status(401).json({ message: error.message });
     }
+});
 
-
-
-
-
-
-
-
-
-})
 
 const getCurrentUser = asyncHandler(async (req, res) => {
-    console.log("req.user", req.user)
     return res.status(200).json(
         new ApiResponse(200, req.user, "current user fetched successfully")
 
@@ -227,8 +242,7 @@ const updateUser = asyncHandler(async (req, res) => {
     // Define allowed fields based on user role
     let allowedUpdates = ['username', 'email', 'password']
 
-
-    if (user.role === 'freelancer') {
+    if (user.role === 'employee') {
         allowedUpdates = allowedUpdates.concat(['skills', 'jobPreferences', 'availabilityStatus'])
     } else if (user.role === 'employer') {
         allowedUpdates = allowedUpdates.concat(['companyName', 'industry', 'companySize'])
@@ -257,12 +271,49 @@ const updateUser = asyncHandler(async (req, res) => {
 })
 
 
+const updateProfilePicture = asyncHandler(async (req, res) => {
+    const userId = req?.user?._id
+    const filePath = req?.file
+
+    if (!filePath) {
+        return res.status(400).json({ message: 'Please provide a file' })
+    }
+
+    const user = await User.findById(userId)
+    if (!user) {
+        return res.status(404).json({ message: 'User not found' })
+    }
+
+    const fileUri = getDataUri(filePath)
+    let profilePicture
+
+    if (filePath) {
+        const fileUri = getDataUri(filePath);
+        profilePicture = await cloudinary.uploader.upload(fileUri);
+    }
+
+    if (!profilePicture?.secure_url) {
+        return res.status(500).json({
+            message: "Failed to upload profile picture",
+            success: false
+        })
+    }
+
+    user.profilePicture = profilePicture?.secure_url
+    await user.save()
+
+    return res.status(200).json(new ApiResponse(200, user, 'Profile picture updated successfully'))
+
+})
+
+
+
 export {
     registerUser,
     loginUser,
     logoutUser,
     refreshAccessToken,
     getCurrentUser,
-    updateUser
-
+    updateUser,
+    updateProfilePicture
 }
