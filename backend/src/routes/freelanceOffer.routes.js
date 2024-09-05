@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { verifyJWT } from '../middlewares/auth.middleware.js';
-import { completeOffer, createFrelancingOffer, getFreelancingOfferById, getFrelancingOffers, updateOffer } from '../controllers/frelancing.controller.js';
+import { completeOffer, createFrelancingOffer, findApplicants, getFreelancingOfferById, getFrelancingOffers, updateOffer } from '../controllers/frelancing.controller.js';
 
 const router = Router()
 
@@ -12,5 +12,7 @@ router.route('/create-offer').post(verifyJWT, createFrelancingOffer)
 router.route('/update-offer/:id').patch(verifyJWT, updateOffer)
 
 router.route('/complted-offer/:id').patch(verifyJWT, completeOffer)
+
+router.route('/find-applicants/:id').get(verifyJWT, findApplicants)
 
 export default router
