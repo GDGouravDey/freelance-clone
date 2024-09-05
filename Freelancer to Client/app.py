@@ -93,7 +93,21 @@ def upload_file():
             info for pid, info in projects.items()
             if any(skill.lower() in [s.lower() for s in skills] for skill in info['skills_required'])
         ]
-        matching_projects.sort(key=lambda x: x['budget'], reverse=True)
+        # matching_projects.sort(key=lambda x: x['budget'], reverse=True)
+        
+        # Sort by weighted match score and budget
+        weight_match_score = 0.999999999999
+        weight_budget = 0.000000000001
+
+        # Assuming each project has 'match_score' and 'budget'
+        for project in matching_projects:
+            # Calculate the weighted score for each project
+            project['weighted_score'] = (weight_match_score * project.get('match_score', 0)) + \
+                                        (weight_budget * project.get('budget', 0))
+
+        # Sort the projects by the calculated weighted score in descending order
+        matching_projects.sort(key=lambda x: x['weighted_score'], reverse=True)
+
 
         return jsonify({
             "matched_skills": matched_skills,
