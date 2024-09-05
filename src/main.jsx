@@ -5,6 +5,8 @@ import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 import App from "./App.jsx";
 import Choose from "./components/Choose.jsx";
 import LoginPage from "./components/LoginPage.jsx";
+import Pie from "./components/Pie.jsx";
+
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -14,6 +16,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/" element={<App />} />
         <Route path="/choose" element={<Choose />} />
         <Route path="/sign-in" element={<LoginPage />} />
+        <Route path="/pie" element={<Pie />} />
       </Routes>
     </Router>
   </React.StrictMode>

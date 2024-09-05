@@ -32,6 +32,7 @@
     "react-just-parallax": "^3.1.16",
     "react-router-dom": "^6.26.1",
     "react-toastify": "^10.0.5",
+    "recharts": "^2.12.7",
     "scroll-lock": "^2.1.5"
   },
   "devDependencies": {
