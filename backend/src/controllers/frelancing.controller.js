@@ -61,10 +61,11 @@ const getFrelancingOffers = asyncHandler(async (req, res) => {
 
 const getFreelancingOfferById = asyncHandler(async (req, res) => {
     const offer = await FreelancingOffer.findById(req?.params?.id)
-        .populate({ path: 'employer',  // Path to the employer field
+        .populate({
+            path: 'employer',  // Path to the employer field
             select: 'username companyName',  // Fields you want to include
             model: 'User',  // Explicitly state the base model (User)
-            })
+        })
         .populate('assignedTo', 'username')
         .populate('applicants', 'username')
 
@@ -166,12 +167,28 @@ const completeOffer = asyncHandler(async (req, res) => {
     return res.status(200).json(new ApiResponse(200, offer, 'Freelancing offer marked as completed'))
 })
 
+const findApplicants = asyncHandler(async (req, res) => {
+    const offerId = req?.params?.id
+    const offer = await FreelancingOffer.findById(offerId).populate('applicants')
+    if (!offer) {
+        return res.status(404).json({ message: 'Offer not found', success: false })
+    }
+
+    const applicants = await Application.find({ freelancingOffer: offerId }).populate('applicant', 'username')
+
+    if (applicants.length === 0) {
+        return res.status(404).json({ message: 'No applicants found', success: false })
+    }
+
+    return res.status(200).json(new ApiResponse(200, applicants, 'Applicants fetched successfully'))
+})
+
 
 
 
 export {
     createFrelancingOffer, getFrelancingOffers,
     getFreelancingOfferById, updateOffer,
-    completeOffer
+    completeOffer, findApplicants
 
 }
