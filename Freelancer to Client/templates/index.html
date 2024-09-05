@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freelancer Skill Matcher and Project Recommender</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 30px;
+        }
+        .card {
+            margin-bottom: 20px;
+        }
+        .chart-container {
+            text-align: center;
+        }
+        .chart-container img {
+            max-width: 100%;
+            height: auto;
+        }
+        .project-list li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Freelancer Skill Matcher and Project Recommender</h1>
+        
+        <!-- Form to upload PDF and extract skills -->
+        <div class="card">
+            <div class="card-header">
+                <h2>Upload Resume PDF and Extract Skills</h2>
+            </div>
+            <div class="card-body">
+                <form id="pdfForm" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="skills">Enter the skills you're looking for (comma-separated):</label>
+                        <input type="text" class="form-control" id="skills" name="skills" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="file">Upload PDF:</label>
+                        <input type="file" class="form-control-file" id="file" name="file" accept=".pdf" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Upload PDF</button>
+                </form>
+
+                <div id="results" class="mt-4">
+                    <h3>Matched Skills:</h3>
+                    <ul id="matchedSkills" class="list-group"></ul>
+
+                    <h3>Missing Skills:</h3>
+                    <ul id="missingSkills" class="list-group"></ul>
+
+                    <h3>Skill Match Score:</h3>
+                    <div id="pieChart" class="chart-container"></div>
+
+                    <h3>Recommended Projects:</h3>
+                    <ul id="projectsList" class="list-group project-list"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Handle PDF form submission
+        document.getElementById('pdfForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            const response = await fetch('/upload', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await response.json();
+            
+            // Populate matched and missing skills
+            document.getElementById('matchedSkills').innerHTML = data.matched_skills.map(skill => `<li class="list-group-item">${skill}</li>`).join('');
+            document.getElementById('missingSkills').innerHTML = data.missing_skills.map(skill => `<li class="list-group-item">${skill}</li>`).join('');
+            
+            // Show pie chart
+            document.getElementById('pieChart').innerHTML = `<img src="data:image/png;base64,${data.pie_chart}" alt="Skill Match Score Chart">`;
+
+            // Populate recommended projects
+            document.getElementById('projectsList').innerHTML = data.projects.map(proj => `<li class="list-group-item">${proj.title} (Budget: $${proj.budget})</li>`).join('');
+        });
+    </script>
+</body>
+</html>
