@@ -12,11 +12,11 @@ const employerSchema = new Schema({
         type: String,
         enum: ['1-10', '11-50', '51-200', '201-500', '501+']
     },
-    postedJobs: [{
+    postedOffersCurrent: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Job'
+        ref: 'FreelancingOffer'
     }],
-    postedOffers: [{
+    postedOffersPast: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'FreelancingOffer'
     }],
@@ -26,5 +26,17 @@ const employerSchema = new Schema({
         default: 0
     }
 })
+
+
+employerSchema.methods.assignJob = function (jobId) {
+    this.postedOffersCurrent.push(jobId);
+    return this.save();
+};
+
+employerSchema.methods.completeJob = function (jobId) {
+    this.postedOffersCurrent.push(jobId);
+    this.postedOffersPast.pull(jobId);  
+    return this.save()
+}
 
 export const Employer = User.discriminator('employer', employerSchema)

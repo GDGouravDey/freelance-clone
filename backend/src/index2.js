@@ -1,64 +1,28 @@
 import express from 'express';
-import cors from 'cors';
-import cookieParser from 'cookie-parser';
-import dotenv from 'dotenv';
-import userRouter from './routes/user.routes.js';
-import employeeRouter from './routes/employee.routes.js';
-import freelanceRouter from './routes/freelanceOffer.routes.js';
 import pdfParse from 'pdf-parse';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import fs from 'fs';
+import cors from 'cors';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-dotenv.config();
-
 const app = express();
-
-app.use(express.json({ limit: '10kb' }));
-app.use(express.urlencoded({ extended: true, limit: '10kb' }));
-app.use(cookieParser());
+const port = 8001;
 
 const corsOptions = {
     origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     optionSuccessStatus: 200
 };
 
 app.use(cors(corsOptions));
 
-app.use('/api/v1/user', userRouter);
-//http://localhost:8000/api/v1/user/register
-
-app.use('/api/v1/employee', employeeRouter);
-import resumeRouter from './routes/resume.routes.js';
-
-app.use('/api/v1/resume', resumeRouter);
-//http://localhost:8000/api/v1/resume/upload-resume
-
-app.use('/api/v1/freelance', freelanceRouter);
-
-import offerRouter from './routes/freelanceOffer.routes.js';
-
-app.use('/api/v1/offer', offerRouter);
-//http://localhost:8000/api/v1/offer/create-offer
-
-import applicationRouter from './routes/application.routes.js';
-
-app.use('/api/v1/application', applicationRouter);
-//http://localhost:8000/api/v1/application/apply
-
-import ratingRouter from './routes/rating.routes.js';
-
-app.use('/api/v1/rating', ratingRouter);
-//http://localhost:8000/api/v1/rating/rate
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const pdfFilePath = join(__dirname, 'uploads/Resume-Sayan Das.pdf');
+const pdfFilePath = join(__dirname, 'uploads/20481ed3e45d08c55d1358dbef65b835');
 
 app.post('/api/v1/extract-skills', async (req, res) => {
     try {
@@ -109,8 +73,6 @@ app.post('/api/v1/generate-chart-1', async (req, res) => {
         if (!fs.existsSync(pdfFilePath)) {
             return res.status(404).json({ message: 'File not found' });
         }
-        console.log('Hello');
-        
 
         const dataBuffer = fs.readFileSync(pdfFilePath);
         const data = await pdfParse(dataBuffer);
@@ -118,7 +80,7 @@ app.post('/api/v1/generate-chart-1', async (req, res) => {
         const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-        const prompt = "Generate a 2D array in the format of [{Domain: 'DOMAIN_NAME', Proficiency: '72'}, ...] to represent the domains candidate knows (like Frontend, Backend, Machine Learning, Data Analysis, etc.) according to the resume and generate a proficiency value to determine proficiency in the domain between 0 to 100. Do not have an Individiual skill as a Domain. Have only two fields - Domain and Proficiency. Just give me the array in the method specified, no need of JSON or any word of explanation. This is the resume data = " + data.text;
+        const prompt = "Generate a 2D array in the format of [{Domain: 'DOMAIN_NAME', Proficiency: '72'}, ...] to represent the domains candidate knows according to the resume and generate a proficiency value to determine skill between 0 to 100. Have only two fields - Domain and Proficiency. Just give me the array in the method specified, no need of JSON or any word of explanation. This is the resume data = " + data.text;
 
         const result = await model.generateContent(prompt);
         res.json({ extractedText: result.response.text() });
@@ -129,4 +91,6 @@ app.post('/api/v1/generate-chart-1', async (req, res) => {
 });
 
 
-export { app };
+app.listen(port, () => {
+    console.log(`Server running on http://localhost:${port}`);
+});

@@ -1,10 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
 const applicationSchema = new Schema({
-    job: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Job'
-    },
     freelancingOffer: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'FreelancingOffer'
@@ -12,10 +8,10 @@ const applicationSchema = new Schema({
     applicant: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required: true
     },
     proposedRate: {
-        type: Number
+        type: Number,
+        required: true
     },
     status: {
         type: String,
@@ -25,6 +21,10 @@ const applicationSchema = new Schema({
     appliedAt: {
         type: Date,
         default: Date.now
+    },
+    taskStatus: { 
+        type: String,
+        enum: ['assigned', 'completed'],
     }
 })
 
