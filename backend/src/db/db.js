@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 import { DB_NAME } from "../constants.js";
-import { User } from "../models/user.model.js";
-import { FreelancingOffer } from "../models/freelancingOffer.model.js"; // Import the FreelancingOffer model
-import { Application } from "../models/application.model.js"; // Import the Application model
+// import { User } from "../models/user.model.js";
+// import { FreelancingOffer } from "../models/freelancingOffer.model.js"; // Import the FreelancingOffer model
+// import { Application } from "../models/application.model.js"; // Import the Application model
 
 const connectDB = async () => {
     try {
