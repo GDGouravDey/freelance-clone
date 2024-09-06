@@ -1,0 +1,58 @@
+
+
+Gourav Dey
+ï
+Gourav Dey|
+#
+gdgouravdey@gmail.com|
+
++917439491785
+§
+GDGouravDey|
+
+LeetCode|
+
+CodeChef|
+Projects
+Movie Recommendation AppDemo  GitHub
+•Built a personalized movie recommendation system.
+•Implemented content-based and collaborative filtering techniques.
+•Improved user experience with a seamless and interactive interface.
+Automated Resume ParserGitHub
+•Developed an automated system to extract and analyze key information from resumes.
+•Utilized NLP techniques to parse resumes and convert them into structured data.
+•Provides personalized job role and certification recommendations for the candidate.
+Fake News Detection AppDemo  GitHub
+•Developed a system to classify news articles as “Reliable” or “Fake.”
+•Utilized NLP techniques to assess the textual content of articles.
+•Enhanced media literacy by providing quick and accurate news verification.
+Immer-SafeDemo  GitHub
+•Designed a fully responsive MERN-based fire safety system website.
+•Integrated fire sensor monitoring to detect fires and send alerts to users.
+•Embedded a ChatBot for user interaction and fire-safety related guidance.
+Sentiment Analysis AppDemo  GitHub
+•Developed a sentiment analysis application to classify user input or comments.
+•Implemented data scraping techniques to gather relevant text data.
+•Applied advanced NLP models to analyze sentiment, leveraging datasets from Amazon and Alexa.
+Education
+Heritage Institute of Technology, KolkataExpected 2026
+Bachelor of Technology in Computer Science and Engineering(CGPA:9.50/10.0)
+HS Memorial School, Janai2022
+Indian School Certificate (ISC) Examination(Percentage:98.0%)
+HS Memorial School, Janai2020
+Indian Certificate of Secondary Education (ICSE) Examination(Percentage:96.2%)
+Achievements
+- Won 1st position in Ice Breaker 3.0, a flagship Competitive Programming Contest held by GDSC HITK
+- Won 1st position in Brainstorm 2024, the flagship event of ACM HITK
+- Won 1st position in Encode, a Coding Contest held by Data Science Department, HITK
+- Won 2nd position in Data Science & Sports Quiz held in HITK
+- Recipient of the GP Birla Scholarship in 2022
+Skills
+Programming Languages:Java, C/C++, Python
+Web Development:HTML, CSS, JavaScript
+Libraries/Frameworks:NodeJS, ExpressJS, ReactJS, NextJS, Bootstrap, TailwindCSS
+AI/ML:Pandas, Numpy, OpenCV, TensorFlow, Keras, Scikit-Learn, Matplotlib
+Databases:MongoDB, MySQL
+Cloud Services:Google Cloud Platform
+Embedded Systems:Arduino and ESP32
+Version Control:Git and GitHub
