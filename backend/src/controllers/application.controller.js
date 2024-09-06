@@ -1,4 +1,4 @@
-import { FreelancingOffer } from '../models/freelancingOffer.model.js';
+import { FreelancingOffer } from '../models/FreelancingOffer.model.js';
 import { Application } from '../models/application.model.js';
 import { asyncHandler } from '../utils/asyncHandeler.js';
 import { ApiResponse } from '../utils/ApiResponse.js';

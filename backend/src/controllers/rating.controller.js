@@ -2,7 +2,7 @@ import { User } from '../models/user.model.js';
 import { Review } from '../models/review.model.js';
 import { asyncHandler } from '../utils/asyncHandeler.js';
 import { ApiResponse } from '../utils/ApiResponse.js';
-import { FreelancingOffer } from '../models/freelancingOffer.model.js';
+import { FreelancingOffer } from '../models/FreelancingOffer.model.js';
 
 const rateEmployee = asyncHandler(async (req, res) => {
     if (req.user.role !== 'employer') {
